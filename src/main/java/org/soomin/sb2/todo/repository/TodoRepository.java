@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 
-public interface TodoRepository extends JpaRepository<Todo, Long>{
+public interface TodoRepository extends JpaRepository<Todo, Long>, TodoSearch{
 
     @Query("SELECT t FROM Todo t WHERE t.title LIKE %:title% ") //SQL 아님
     Page<Todo> getTitle(@Param("title") String title, Pageable pageable);
