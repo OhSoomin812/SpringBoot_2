@@ -34,7 +34,7 @@ public class BoardSearchImpl implements BoardSearch{
         BooleanBuilder builder = new BooleanBuilder();
         String[] types = pageRequestDTO.getArr();   // ['T', 'C', 'W']
 
-        if(types.length > 0) {
+        if(types != null  && types.length > 0) {
 
             String keyword = pageRequestDTO.getKeyword();
 
