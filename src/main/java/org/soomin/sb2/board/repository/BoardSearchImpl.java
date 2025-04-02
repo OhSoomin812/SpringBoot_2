@@ -13,6 +13,7 @@ import org.soomin.sb2.board.dto.PageRequestDTO;
 import org.soomin.sb2.board.dto.PageResponseDTO;
 import org.soomin.sb2.board.entities.BoardEntity;
 import org.soomin.sb2.board.entities.QBoardEntity;
+import org.soomin.sb2.reply.entities.QReplyEntity;
 
 import java.util.List;
 
@@ -25,8 +26,11 @@ public class BoardSearchImpl implements BoardSearch{
     @Override
     public PageResponseDTO<BoardListDTO> list(PageRequestDTO pageRequestDTO) {
         QBoardEntity board = QBoardEntity.boardEntity;
+        QReplyEntity reply = QReplyEntity.replyEntity;
 
         JPQLQuery<BoardEntity> query = queryFactory.selectFrom(board);
+        query.leftJoin(reply).on(reply.board.eq(board));
+
         query.where(board.bno.gt(0L));
         query.where(board.delFlag.eq(false));
 
@@ -51,13 +55,15 @@ public class BoardSearchImpl implements BoardSearch{
             query.where(builder);
         }// end if
 
+        query.groupBy(board);
+
         query.limit(pageRequestDTO.getLimit());
         query.offset(pageRequestDTO.getOffset());
 
         query.orderBy(new OrderSpecifier<>(Order.DESC, board.bno));
 
         JPQLQuery<BoardListDTO> dtoQuery = query.select(Projections.bean(BoardListDTO.class,
-                board.bno, board.title, board.writer, board.viewCnt, board.regDate));
+                board.bno, board.title, board.writer, board.viewCnt, board.regDate, reply.rno.count().as("replyCnt")));
 
         long count = dtoQuery.fetchCount();
 

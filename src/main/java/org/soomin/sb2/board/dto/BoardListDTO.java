@@ -14,4 +14,6 @@ public class BoardListDTO {
     private LocalDateTime regDate;
     private int viewCnt;
 
+    private long replyCnt;
+
 }

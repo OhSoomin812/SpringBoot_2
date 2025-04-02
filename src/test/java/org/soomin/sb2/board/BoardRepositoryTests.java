@@ -1,4 +1,4 @@
-package org.soomin.sb2;
+package org.soomin.sb2.board;
 
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -6,10 +6,7 @@ import org.soomin.sb2.board.dto.PageRequestDTO;
 import org.soomin.sb2.board.entities.BoardEntity;
 import org.soomin.sb2.board.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @Log4j2
