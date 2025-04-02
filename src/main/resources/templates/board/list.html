@@ -19,12 +19,10 @@
                     </li>
 
                     <th:block th:each="num : ${#numbers.sequence(data.start, data.end)}">
-                        <li th:class="${num == data.page ? 'page-item active' : 'page-item'}">
-                            <a class="page-link"
-                               th:href="@{/board/list(page=${num}, size=${requestDTO.size})}">
-                                [[ ${num} ]]
-                            </a>
-                        </li>
+                        <li th:class="${num == data.page? 'page-item active':'page-item'}"
+                            th:with="linkUrl=@{/board/list(page=${num}, size=${requestDTO.size})}"
+                        >
+                            <a class="page-link" th:href="${linkUrl + requestDTO.link}" >[[${num} ]]</a></li>
                     </th:block>
 
                     <li class="page-item" th:if="${data.next}">
