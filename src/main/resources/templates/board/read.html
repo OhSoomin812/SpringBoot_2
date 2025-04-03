@@ -1,10 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/baseLayout.html}">
 
-</body>
-</html>
+<div layout:fragment="content">
+    <div class="card" style="margin-top: 10px;">
+        <div class="card-body">
+            <h5 class="card-title">게시글 상세보기</h5>
+
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>번호</th>
+                    <td>[[ ${board.bno} ]]</td>
+                </tr>
+                <tr>
+                    <th>제목</th>
+                    <td>[[ ${board.title} ]]</td>
+                </tr>
+                <tr>
+                    <th>작성자</th>
+                    <td>[[ ${board.writer} ]]</td>
+                </tr>
+                <tr>
+                    <th>작성일</th>
+                    <td>[[ ${board.regDate} ]]</td>
+                </tr>
+                <tr>
+                    <th>조회수</th>
+                    <td>[[ ${board.viewCnt} ]]</td>
+                </tr>
+                <tr>
+                    <th>내용</th>
+                    <td>[[ ${board.content} ]]</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="d-flex justify-content-end">
+                <a th:href="@{/board/list}" class="btn btn-secondary">목록으로</a>
+                <a th:href="@{/board/modify/{bno}(bno=${board.bno})}" class="btn btn-primary mx-2">수정</a>
+                <form th:action="@{/board/delete/{bno}(bno=${board.bno})}" method="POST" onsubmit="return confirm('정말 삭제하시겠습니까?')">
+                    <button type="submit" class="btn btn-danger">삭제</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script layout:fragment="script">
+  console.log("게시글 상세보기 페이지 로드 완료");
+</script>

@@ -7,9 +7,11 @@ import org.soomin.sb2.board.entities.BoardEntity;
 import org.soomin.sb2.board.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @Log4j2
+@Transactional
 public class BoardRepositoryTests {
 
     @Autowired(required = false)
@@ -36,6 +38,6 @@ public class BoardRepositoryTests {
         pageRequestDTO.setKeyword("11");
 
         log.info(repository.list(pageRequestDTO));
-
     }
+
 }

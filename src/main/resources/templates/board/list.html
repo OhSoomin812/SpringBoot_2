@@ -4,10 +4,14 @@
       layout:decorate="~{layout/baseLayout.html}">
 
 <div layout:fragment="content">
-    <div class="card">
+    <div class="card" style="margin-top: 10px;">
         <div class="card-body">
-            <h5 class="card-title">카드 제목</h5>
-            <p class="card-text">이것은 부트스트랩 카드를 사용하는 예제입니다.</p>
+            <h5 class="card-title">게시판</h5>
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <p class="card-text mb-0">Spring Boot의 JPA, Thymeleaf를 활용해 만든 게시판입니다.</p>
+                <a href="/board/register" class="btn btn-primary">등록하기</a>
+            </div>
 
             <table class="table table-hover">
                 <thead class="table-light">
@@ -27,37 +31,34 @@
                             [[ ${board.title} ]]
                         </a>
                         <b> [ [[ ${board.replyCnt} ]] ] </b> </td>
-                    <td>홍길동</td>
-                    <td>2024-04-02</td>
-                    <td>120</td>
+                    <td>[[ ${board.writer} ]]</td>
+                    <td>[[ ${board.regDate} ]]</td>
+                    <td>[[ ${board.viewCnt} ]]</td>
                 </tr>
 
                 </tbody>
             </table>
 
 
-            <div>
-
-                <ul class="pagination">
-                    <li class="page-item" th:if="${data.prev}" th:with="linkUrl=@{/board/list(page=${data.start -1}, size=${requestDTO.size})}" >
-                        <a class="page-link" th:href="${linkUrl + requestDTO.link}" >
-                            Previous
-                        </a>
+            <div class="text-center">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:if="${data.prev}" th:with="linkUrl=@{/board/list(page=${data.start -1}, size=${requestDTO.size})}">
+                        <a class="page-link" th:href="${linkUrl + requestDTO.link}">Previous</a>
                     </li>
 
                     <th:block th:each="num : ${#numbers.sequence(data.start,data.end)}">
                         <li th:class="${num == data.page? 'page-item active':'page-item'}"
-                            th:with="linkUrl=@{/board/list(page=${num}, size=${requestDTO.size})}"
-                        >
-                            <a class="page-link" th:href="${linkUrl + requestDTO.link}" >[[${num} ]]</a></li>
+                            th:with="linkUrl=@{/board/list(page=${num}, size=${requestDTO.size})}">
+                            <a class="page-link" th:href="${linkUrl + requestDTO.link}">[[${num}]]</a>
+                        </li>
                     </th:block>
 
-                    <li class="page-item" th:if="${data.next}" th:with="linkUrl=@{/board/list(page=${data.end + 1}, size=${requestDTO.size})}" >
-                        <a class="page-link" th:href="${linkUrl + requestDTO.link}" >Next</a>
+                    <li class="page-item" th:if="${data.next}" th:with="linkUrl=@{/board/list(page=${data.end + 1}, size=${requestDTO.size})}">
+                        <a class="page-link" th:href="${linkUrl + requestDTO.link}">Next</a>
                     </li>
                 </ul>
-
             </div>
+
 
         </div>
     </div>

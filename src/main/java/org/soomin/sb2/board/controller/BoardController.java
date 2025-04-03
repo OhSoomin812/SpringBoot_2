@@ -9,10 +9,7 @@ import org.soomin.sb2.board.service.BoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Arrays;
@@ -32,6 +29,16 @@ public class BoardController {
         log.info("Board List");
 
         model.addAttribute("data", service.list(requestDTO));
+    }
+
+    @GetMapping("/read/{bno}")
+    public String read(@PathVariable("bno") Long bno, PageRequestDTO requestDTO, Model model) {
+        log.info("Read Board with bno: " + bno);
+
+        model.addAttribute("board", service.get(bno));
+        model.addAttribute("requestDTO", requestDTO);
+
+        return "board/read"; // read.html 페이지로 이동
     }
 
     @GetMapping("register")
@@ -63,6 +70,7 @@ public class BoardController {
             return "redirect:/board/register";
         }
 
+        service.register(dto);
         return "redirect:/board/list";
     }
 
