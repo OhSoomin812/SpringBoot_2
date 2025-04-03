@@ -1,5 +1,6 @@
 package org.soomin.sb2.reply.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +18,7 @@ public class ReplyListDTO {
 
     private Long bno;
 
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd-ss")
     private LocalDateTime regDate, modDate;
 
     public ReplyListDTO(Long rno, String replyText, String replyer, Long bno, LocalDateTime regDate, LocalDateTime modDate) {

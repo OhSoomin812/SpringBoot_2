@@ -39,4 +39,8 @@ public class ReplyEntity {
     @LastModifiedDate
     @Column(name="modDate")
     protected LocalDateTime modDate;
+
+    public void changeReplyText(String text){
+        this.replyText = text;
+    }
 }

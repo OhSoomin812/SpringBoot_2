@@ -2,8 +2,11 @@ package org.soomin.sb2.reply;
 
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
+import org.soomin.sb2.board.dto.PageRequestDTO;
+import org.soomin.sb2.board.dto.PageResponseDTO;
 import org.soomin.sb2.board.entities.BoardEntity;
 import org.soomin.sb2.reply.dto.ReplyListDTO;
+import org.soomin.sb2.reply.dto.ReplyReadDTO;
 import org.soomin.sb2.reply.entities.ReplyEntity;
 import org.soomin.sb2.reply.repository.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.annotation.Commit;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -74,5 +79,36 @@ public class ReplyRepositoryTests {
 
         Page<ReplyListDTO> result = repository.listOfBoard3(rno, pageable);
         result.getContent().forEach(log::info);
+    }
+
+    @Test
+    public void testSelectOne() {
+        Long rno = 26L;
+
+        ReplyReadDTO dto = repository.selectOne(rno);
+
+        log.info(dto);
+    }
+
+    @Test
+    @Transactional
+    @Commit
+    public void testUpdate() {
+        Long rno = 1L;
+        String text = "Reply 1 Updated...";
+
+        repository.updateOne(text, rno);
+    }
+
+    @Test
+    public void testListOfBoardQuerydsl() {
+
+        Long bno = 123L;
+
+        PageRequestDTO requestDTO = new PageRequestDTO(); //1, 10
+
+        PageResponseDTO<ReplyListDTO> res = repository.listQuerydsl(bno, requestDTO);
+
+        log.info(res);
     }
 }
