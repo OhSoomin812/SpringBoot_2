@@ -29,14 +29,14 @@
     </div>
 
     <div class="container mt-5">
-        <div class="card shadow-lg">
+        <div class="card">
             <div class="card-body">
                 <div class="mb-3">
-                    <label for="username" class="form-label">작성자</label>
+                    <label for="replyer" class="form-label">작성자</label>
                     <input type="text" class="form-control" name="replyer" placeholder="이름을 입력하세요" required>
                 </div>
                 <div class="mb-3">
-                    <label for="comment" class="form-label">댓글</label>
+                    <label for="replyText" class="form-label">댓글</label>
                     <input class="form-control" name="replyText" rows="3" placeholder="댓글을 입력하세요" required/>
                 </div>
                 <button type="submit" class="btn btn-primary replyAddBtn">댓글 작성</button>
@@ -46,7 +46,7 @@
 
     <!-- 댓글 목록 -->
     <div class="container mt-5">
-        <div class="card shadow-lg">
+        <div class="card">
             <div class="card-header bg-secondary text-white text-center">
                 <h3>댓글 목록</h3>
             </div>
@@ -193,7 +193,7 @@
 
   },false)
 
-  const bno = [[${bno}]]
+  const bno = [[ ${bno} ]]
 
 
   function getReplies(pageNum, last){
